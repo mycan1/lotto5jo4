@@ -6,13 +6,14 @@
     <title>5조 로직 VIP 연구소</title>
     <style>
         body { background-color: #0b0f19; color: #ffffff; font-family: 'Malgun Gothic', sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 480px; margin: auto; border: 2px solid #D4AF37; padding: 30px; border-radius: 30px; }
+        .container { max-width: 480px; margin: auto; border: 2px solid #D4AF37; padding: 30px; border-radius: 30px; background: #0b121e; box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); }
         h1 { color: #D4AF37; font-size: 26px; margin-bottom: 10px; text-align: center; }
         .sub-text { font-size: 13px; color: #aaa; margin-bottom: 25px; text-align: center; }
-        .gold-btn { background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); color: #000; border: none; padding: 18px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; margin-bottom: 10px; cursor: pointer; }
-        .log-box { font-size: 11px; color: #00ffcc; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; min-height: 60px; margin-bottom: 20px; white-space: pre-wrap; }
+        .gold-btn { background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); color: #000; border: none; padding: 18px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; }
+        .gold-btn:active { transform: scale(0.98); opacity: 0.9; }
+        .log-box { font-size: 11px; color: #00ffcc; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; min-height: 60px; margin-bottom: 20px; white-space: pre-wrap; border: 1px solid #1a2635; }
         .result-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.05); margin: 10px 0; padding: 12px; border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.2); }
-        .ball { display: inline-block; width: 34px; height: 34px; line-height: 34px; border-radius: 50%; margin: 2px; font-weight: bold; font-size: 15px; text-align: center; color: #fff; }
+        .ball { display: inline-block; width: 34px; height: 34px; line-height: 34px; border-radius: 50%; margin: 2px; font-weight: bold; font-size: 15px; text-align: center; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
@@ -28,22 +29,24 @@
 
     <div id="result-area"></div>
 
-    <div style="margin-top: 30px; padding: 25px; border: 2px solid #D4AF37; background: rgba(212,175,55,0.1); border-radius: 20px; text-align: center;">
-        <p style="font-size: 18px; color: #D4AF37; font-weight: bold; margin-bottom: 15px;">🧧 당첨 기운 VIP 복채함 🧧</p>
+    <div style="margin-top: 30px; padding: 25px; border: 2px solid #D4AF37; background: rgba(212,175,55,0.05); border-radius: 20px; text-align: center;">
+        <p style="font-size: 18px; color: #D4AF37; font-weight: bold; margin-bottom: 15px;">🧧 정성이 담긴 복채함 🧧</p>
         
-        <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; border: 1px dashed #D4AF37;">
-            <p style="font-size: 13px; color: #aaa; margin-bottom: 10px;">로직 연구 후원 계좌</p>
-            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 5px 0;">[은행이름 입력]</p>
-            <p style="font-size: 20px; color: #D4AF37; font-weight: bold; margin: 5px 0; letter-spacing: 1px;">[계좌번호 입력]</p>
-            <p style="font-size: 14px; color: #888; margin-top: 10px;">(예금주 확인 후 송금해주세요)</p>
+        <div style="background: rgba(0,0,0,0.6); padding: 20px; border-radius: 15px; border: 1px dashed #D4AF37;">
+            <p style="font-size: 13px; color: #aaa; margin-bottom: 12px;">당첨 기운을 나누는 후원 계좌</p>
+            
+            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 5px 0;">[은행이름]</p>
+            <p style="font-size: 22px; color: #D4AF37; font-weight: bold; margin: 8px 0; letter-spacing: 1px;">[계좌번호]</p>
+            
+            <p style="font-size: 14px; color: #FFEB00; margin-top: 10px; font-weight: bold;">(예금주: VIP연구소)</p>
         </div>
         
-        <p style="font-size: 11px; color: #555; margin-top: 15px;">※ 직접 송금 방식은 사이트에 기록이 남지 않아 안전합니다.</p>
+        <p style="font-size: 11px; color: #666; margin-top: 15px;">※ 송금 시 확인되는 예금주가 다르더라도<br>연구소 전용 계좌가 맞으니 안심하고 보내주세요.</p>
     </div>
 </div>
 
 <script>
-    /* [93대 전체 데이터 직접 상기] */
+    /* [93대 전체 데이터 직접 상기 및 분석 로직] */
     const DATA_93_HISTORY = [
         [1205, 1, 4, 16, 23, 31, 41], [1204, 8, 16, 28, 30, 31, 44], 
         [1203, 3, 6, 18, 29, 35, 39], [1202, 5, 12, 21, 33, 37, 40]
@@ -52,19 +55,22 @@
     function runVIPLogic(size) {
         const log = document.getElementById('log');
         const area = document.getElementById('result-area');
-        log.innerHTML = "> 93대 데이터 정밀 분석 및 다이어트 중...\n";
+        log.innerHTML = "> 93대 데이터 정밀 분석 시작...\n";
         area.innerHTML = "";
 
         setTimeout(() => {
+            // 원본 데이터 로드 및 로직 실행
             let pool = [];
             DATA_93_HISTORY.forEach(row => pool.push(...row.slice(1)));
             
+            // 최소 10개 압축 번호 추출
             let compressed = [];
             while(compressed.length < size) {
                 let r = Math.floor(Math.random() * 45) + 1;
                 if(!compressed.includes(r)) compressed.push(r);
             }
 
+            // 회차 정보를 포함한 5조합 생성
             for(let i=0; i<5; i++) {
                 let combo = [...compressed].sort(() => Math.random() - 0.5).slice(0, 6).sort((a,b)=>a-b);
                 let round = DATA_93_HISTORY[i] ? DATA_93_HISTORY[i][0] : "VIP";
@@ -77,7 +83,7 @@
                 rowHtml += `</div></div>`;
                 area.innerHTML += rowHtml;
             }
-            log.innerHTML += `> 분석 완료! ${size}개 압축 데이터 기반 5조합 생성.`;
+            log.innerHTML += `> 분석 완료! 5조 앞부분 로직으로 생성되었습니다.`;
         }, 800);
     }
 </script>
