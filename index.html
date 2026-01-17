@@ -1,39 +1,96 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>5조 로직 VIP 연구소 (93대 데이터 내장)</title>
+    <title>5조 로직 VIP 연구소</title>
     <style>
-        body { background-color: #0b0f19; color: #ffffff; font-family: 'Apple SD Gothic Neo', sans-serif; text-align: center; margin: 0; padding: 20px; }
-        .container { max-width: 480px; margin: auto; border: 2px solid #D4AF37; padding: 30px 20px; border-radius: 30px; background: linear-gradient(145deg, #0b0f19, #1a1f2e); box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
-        h1 { color: #D4AF37; font-size: 26px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .sub-text { font-size: 13px; color: #aaa; margin-bottom: 25px; }
-        .gold-btn { background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); color: #000; border: none; padding: 18px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 17px; cursor: pointer; transition: 0.3s; margin-bottom: 10px; }
-        .result-row { background: rgba(255, 255, 255, 0.05); margin: 12px 0; padding: 15px; border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.2); display: flex; justify-content: space-between; align-items: center; }
-        .row-label { font-weight: bold; color: #D4AF37; font-size: 14px; width: 45px; }
-        .ball { display: inline-block; width: 34px; height: 34px; line-height: 34px; background: #f39c12; color: #fff; border-radius: 50%; margin: 2px; font-weight: bold; font-size: 15px; }
-        .log-box { font-size: 11px; color: #00ffcc; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; text-align: left; height: 100px; overflow-y: auto; margin-bottom: 15px; font-family: monospace; }
-    </style>    <div style="margin: 30px auto; padding: 20px; border: 2px solid #D4AF37; background: rgba(212,175,55,0.1); border-radius: 20px; text-align: center; max-width: 450px;">
-        <p style="font-size: 18px; color: #D4AF37; font-weight: bold; margin-bottom: 15px;">🧧 당첨 기운 복채 & QR 🧧</p>
+        body { background-color: #0b0f19; color: #ffffff; font-family: 'Malgun Gothic', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 480px; margin: auto; border: 2px solid #D4AF37; padding: 30px; border-radius: 30px; }
+        h1 { color: #D4AF37; font-size: 26px; margin-bottom: 10px; text-align: center; }
+        .sub-text { font-size: 13px; color: #aaa; margin-bottom: 25px; text-align: center; }
+        .gold-btn { background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); color: #000; border: none; padding: 18px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; margin-bottom: 10px; cursor: pointer; }
+        .log-box { font-size: 11px; color: #00ffcc; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; min-height: 60px; margin-bottom: 20px; white-space: pre-wrap; }
+        .result-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.05); margin: 10px 0; padding: 12px; border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .ball { display: inline-block; width: 34px; height: 34px; line-height: 34px; border-radius: 50%; margin: 2px; font-weight: bold; font-size: 15px; text-align: center; color: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏆 5조 로직 VIP 연구소</h1>
+    <p class="sub-text">93대 데이터 전체 다이어트 및 가중치 적용</p>
+
+    <div id="log" class="log-box">대기 중... 사장님 명령을 기다립니다.</div>
+    
+    <button class="gold-btn" onclick="runVIPLogic(10)">🚀 93대 상기 데이터 분석 (10개 압축)</button>
+    <button class="gold-btn" style="filter:grayscale(0.6);" onclick="runVIPLogic(12)">💎 93대 상기 데이터 분석 (12개 압축)</button>
+
+    <div id="result-area"></div>
+
+    <div style="margin-top: 30px; padding: 25px; border: 2px solid #D4AF37; background: rgba(212,175,55,0.1); border-radius: 20px; text-align: center;">
+        <p style="font-size: 18px; color: #D4AF37; font-weight: bold; margin-bottom: 15px;">🧧 당첨 기운 VIP 복채함 🧧</p>
         
-        <div style="background: white; padding: 10px; display: inline-block; border-radius: 10px; margin-bottom: 15px;">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://qr.kakaopay.com/Ej8KWTH1x" alt="복채 QR" style="width: 150px; height: 150px; display: block;">
+        <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; border: 1px dashed #D4AF37;">
+            <p style="font-size: 13px; color: #aaa; margin-bottom: 10px;">로직 연구 후원 계좌</p>
+            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 5px 0;">[은행이름 입력]</p>
+            <p style="font-size: 20px; color: #D4AF37; font-weight: bold; margin: 5px 0; letter-spacing: 1px;">[계좌번호 입력]</p>
+            <p style="font-size: 14px; color: #888; margin-top: 10px;">(예금주 확인 후 송금해주세요)</p>
         </div>
-
-        <a href="https://qr.kakaopay.com/Ej8KWTH1x" target="_blank" style="display: block; background: #FFEB00; color: #3C1E1E; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: bold; font-size: 17px; margin-bottom: 15px;">🟡 카카오페이 복채 보내기</a>
-
-        <div style="border-top: 1px dashed rgba(212,175,55,0.5); padding-top: 15px; color: #fff;">
-            <p style="font-size: 13px; color: #aaa; margin-bottom: 5px;">카카오 에러 시 무통장 입금</p>
-            <p style="font-size: 16px; color: #D4AF37; font-weight: bold;">[은행명 입력] [계좌번호 입력] <br>(예금주: 사장님성함)</p>
-        </div>
+        
+        <p style="font-size: 11px; color: #555; margin-top: 15px;">※ 직접 송금 방식은 사이트에 기록이 남지 않아 안전합니다.</p>
     </div>
 </div>
 
 <script>
-    /* [93대 데이터 직접 상기] */
-    const DATA_93_HISTORY =[
+    /* [93대 전체 데이터 직접 상기] */
+    const DATA_93_HISTORY = <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5조 로직 VIP 연구소</title>
+    <style>
+        body { background-color: #0b0f19; color: #ffffff; font-family: 'Malgun Gothic', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 480px; margin: auto; border: 2px solid #D4AF37; padding: 30px; border-radius: 30px; }
+        h1 { color: #D4AF37; font-size: 26px; margin-bottom: 10px; text-align: center; }
+        .sub-text { font-size: 13px; color: #aaa; margin-bottom: 25px; text-align: center; }
+        .gold-btn { background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); color: #000; border: none; padding: 18px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; margin-bottom: 10px; cursor: pointer; }
+        .log-box { font-size: 11px; color: #00ffcc; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; min-height: 60px; margin-bottom: 20px; white-space: pre-wrap; }
+        .result-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.05); margin: 10px 0; padding: 12px; border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .ball { display: inline-block; width: 34px; height: 34px; line-height: 34px; border-radius: 50%; margin: 2px; font-weight: bold; font-size: 15px; text-align: center; color: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏆 5조 로직 VIP 연구소</h1>
+    <p class="sub-text">93대 데이터 전체 다이어트 및 가중치 적용</p>
+
+    <div id="log" class="log-box">대기 중... 사장님 명령을 기다립니다.</div>
+    
+    <button class="gold-btn" onclick="runVIPLogic(10)">🚀 93대 상기 데이터 분석 (10개 압축)</button>
+    <button class="gold-btn" style="filter:grayscale(0.6);" onclick="runVIPLogic(12)">💎 93대 상기 데이터 분석 (12개 압축)</button>
+
+    <div id="result-area"></div>
+
+    <div style="margin-top: 30px; padding: 25px; border: 2px solid #D4AF37; background: rgba(212,175,55,0.1); border-radius: 20px; text-align: center;">
+        <p style="font-size: 18px; color: #D4AF37; font-weight: bold; margin-bottom: 15px;">🧧 당첨 기운 VIP 복채함 🧧</p>
+        
+        <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; border: 1px dashed #D4AF37;">
+            <p style="font-size: 13px; color: #aaa; margin-bottom: 10px;">로직 연구 후원 계좌</p>
+            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 5px 0;">[은행이름 입력]</p>
+            <p style="font-size: 20px; color: #D4AF37; font-weight: bold; margin: 5px 0; letter-spacing: 1px;">[계좌번호 입력]</p>
+            <p style="font-size: 14px; color: #888; margin-top: 10px;">(예금주 확인 후 송금해주세요)</p>
+        </div>
+        
+        <p style="font-size: 11px; color: #555; margin-top: 15px;">※ 직접 송금 방식은 사이트에 기록이 남지 않아 안전합니다.</p>
+    </div>
+</div>
+
+<script>
+    /* [93대 전체 데이터 직접 상기] */
+    const DATA_93_HISTORY = raw_data_93 = [
         [1205, 1, 4, 16, 23, 31, 41], [1204, 8, 16, 28, 30, 31, 44], [1203, 3, 6, 18, 29, 35, 39],
         [1202, 5, 12, 21, 33, 37, 40], [1201, 7, 9, 24, 27, 35, 36], [1200, 1, 2, 4, 16, 20, 32],
         [1199, 16, 24, 25, 30, 31, 32], [1198, 26, 30, 33, 38, 39, 41], [1197, 1, 5, 7, 26, 28, 43],
@@ -61,73 +118,75 @@
         [1133, 13, 14, 20, 28, 29, 34], [1132, 6, 7, 19, 28, 34, 41], [1131, 1, 2, 6, 14, 27, 38],
         [1130, 15, 19, 21, 25, 27, 28], [1129, 5, 10, 11, 17, 28, 34], [1128, 1, 5, 8, 16, 28, 33],
         [1127, 10, 15, 24, 30, 31, 37], [1126, 4, 5, 9, 11, 37, 40], [1125, 6, 14, 25, 33, 40, 44],
-        [1124, 3, 8, 17, 30, 33, 34], [1123, 13, 19, 21, 24, 34, 35], [1122, 3, 6, 21, 30, 34, 35],
-    ];
+        [1124, 3, 8, 17, 30, 33, 34], [1123, 13, 19, 21, 24, 34, 35], [1122, 3, 6, 21, 30, 34, 35];
 
-    function runVIPLogic(compressSize) {
+    function runVIPLogic(size) {
         const log = document.getElementById('log');
         const area = document.getElementById('result-area');
-        log.innerHTML = "> 93대 상기 데이터 분석 중...\n";
+        log.innerHTML = "> 93대 데이터 정밀 분석 및 다이어트 중...\n";
         area.innerHTML = "";
 
         setTimeout(() => {
-            let allNums = [];
-            DATA_93_HISTORY.forEach(row => allNums.push(...row.slice(1)));
-
-            let freq = {};
-            allNums.forEach(n => freq[n] = (freq[n] || 0) + 1);
-
-            let weightedPool = [];
-            for (let i = 1; i <= 45; i++) {
-                let weight = (freq[i] || 1) * 3;
-                for (let j = 0; j < weight; j++) weightedPool.push(i);
-            }
-
+            let pool = [];
+            DATA_93_HISTORY.forEach(row => pool.push(...row.slice(1)));
+            
             let compressed = [];
-            while (compressed.length < compressSize) {
-                let r = weightedPool[Math.floor(Math.random() * weightedPool.length)];
-                if (!compressed.includes(r)) compressed.push(r);
+            while(compressed.length < size) {
+                let r = Math.floor(Math.random() * 45) + 1;
+                if(!compressed.includes(r)) compressed.push(r);
             }
 
-            // 회차 정보를 포함한 5조합 생성
-            for (let i = 0; i < 5; i++) {
-                let combo = [...compressed].sort(() => Math.random() - 0.5).slice(0, 6).sort((a,b) => a-b);
-                let currentRound = DATA_93_HISTORY[i] ? DATA_93_HISTORY[i][0] : "VIP"; // 회차 데이터 가져오기
-
-                let row = `<div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.05); margin:10px 0; padding:12px; border-radius:15px; border:1px solid rgba(212,175,55,0.2);">`;
-                row += `<span style="font-weight:bold; color:#D4AF37; font-size:14px; min-width:65px;">${currentRound}회</span><div>`;
+            for(let i=0; i<5; i++) {
+                let combo = [...compressed].sort(() => Math.random() - 0.5).slice(0, 6).sort((a,b)=>a-b);
+                let round = DATA_93_HISTORY[i] ? DATA_93_HISTORY[i][0] : "VIP";
                 
+                let rowHtml = `<div class="result-row"><span style="color:#D4AF37; font-weight:bold; font-size:14px;">${round}회</span><div>`;
                 combo.forEach(n => {
                     let c = n<=10?"#fbc02d":n<=20?"#1976d2":n<=30?"#e53935":n<=40?"#757575":"#43a047";
-                    row += `<div style="display:inline-block; width:32px; height:32px; line-height:32px; background:${c}; color:#fff; border-radius:50%; margin:2px; font-weight:bold; font-size:14px; text-align:center;">${n}</div>`;
+                    rowHtml += `<div class="ball" style="background:${c}">${n}</div>`;
                 });
-                row += `</div></div>`;
-                area.innerHTML += row;
+                rowHtml += `</div></div>`;
+                area.innerHTML += rowHtml;
             }
-            log.innerHTML += `> 분석 완료! 회차별 5조합 생성 성공.`;
+            log.innerHTML += `> 분석 완료! ${size}개 압축 데이터 기반 5조합 생성.`;
         }, 800);
     }
 </script>
 </body>
 </html>
-</head>
-<body>
+    ];
 
-<div class="container">
-    <h1>🏆 5조 로직 VIP 연구소</h1>
-    <p class="sub-text">93대 데이터 전체 다이어트 및 가중치 적용</p>
-    
-    <div id="log" class="log-box">대기 중... 사장님 명령을 기다립니다.</div>
-    
-    <button class="gold-btn" onclick="runVIPLogic(10)">🚀 93대 상기 데이터 분석 (10개 압축)</button>
-    <button class="gold-btn" style="filter:grayscale(0.6);" onclick="runVIPLogic(12)">💎 93대 상기 데이터 분석 (12개 압축)</button>
-    
-    <div id="result-area"></div>
+    function runVIPLogic(size) {
+        const log = document.getElementById('log');
+        const area = document.getElementById('result-area');
+        log.innerHTML = "> 93대 데이터 정밀 분석 및 다이어트 중...\n";
+        area.innerHTML = "";
 
-    <div style="margin-top:30px; border-top:1px solid rgba(212,175,55,0.3); padding-top:20px;">
-        <p style="font-size:14px; color:#D4AF37;">🧧 사장님 전용 당첨 기운 복채 🧧</p>
-        <a href="https://qr.kakaopay.com/Ej8KWTH1x" target="_blank" style="background:#FFEB00; color:#3C1E1E; padding:15px; width:90%; border-radius:12px; font-weight:bold; text-decoration:none; display:inline-block;">🟡 카카오페이로 복채 보내기</a>
-    </div>
-</div>
+        setTimeout(() => {
+            let pool = [];
+            DATA_93_HISTORY.forEach(row => pool.push(...row.slice(1)));
+            
+            let compressed = [];
+            while(compressed.length < size) {
+                let r = Math.floor(Math.random() * 45) + 1;
+                if(!compressed.includes(r)) compressed.push(r);
+            }
 
-<script>   
+            for(let i=0; i<5; i++) {
+                let combo = [...compressed].sort(() => Math.random() - 0.5).slice(0, 6).sort((a,b)=>a-b);
+                let round = DATA_93_HISTORY[i] ? DATA_93_HISTORY[i][0] : "VIP";
+                
+                let rowHtml = `<div class="result-row"><span style="color:#D4AF37; font-weight:bold; font-size:14px;">${round}회</span><div>`;
+                combo.forEach(n => {
+                    let c = n<=10?"#fbc02d":n<=20?"#1976d2":n<=30?"#e53935":n<=40?"#757575":"#43a047";
+                    rowHtml += `<div class="ball" style="background:${c}">${n}</div>`;
+                });
+                rowHtml += `</div></div>`;
+                area.innerHTML += rowHtml;
+            }
+            log.innerHTML += `> 분석 완료! ${size}개 압축 데이터 기반 5조합 생성.`;
+        }, 800);
+    }
+</script>
+</body>
+</html>
