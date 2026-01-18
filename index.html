@@ -2,90 +2,120 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>5조 로직 VIP 연구소</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>신의 손 - GitHub Edition</title>
     <style>
-        body { background-color: #0b0f19; color: #ffffff; font-family: 'Malgun Gothic', sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 480px; margin: auto; border: 2px solid #D4AF37; padding: 30px; border-radius: 30px; background: #0b121e; box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); }
-        h1 { color: #D4AF37; font-size: 26px; margin-bottom: 10px; text-align: center; }
-        .sub-text { font-size: 13px; color: #aaa; margin-bottom: 25px; text-align: center; }
-        .gold-btn { background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); color: #000; border: none; padding: 18px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; }
-        .gold-btn:active { transform: scale(0.98); opacity: 0.9; }
-        .log-box { font-size: 11px; color: #00ffcc; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 10px; min-height: 60px; margin-bottom: 20px; white-space: pre-wrap; border: 1px solid #1a2635; }
-        .result-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.05); margin: 10px 0; padding: 12px; border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.2); }
-        .ball { display: inline-block; width: 34px; height: 34px; line-height: 34px; border-radius: 50%; margin: 2px; font-weight: bold; font-size: 15px; text-align: center; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        body { background-color: #0c0c0c; color: #f2c94c; font-family: 'Malgun Gothic', sans-serif; text-align: center; padding: 10px; margin: 0; }
+        h1 { color: #f2c94c; font-size: 2.2rem; margin-top: 20px; margin-bottom: 15px; font-weight: bold; }
+        .target-box { color: #FFF; font-size: 1.1rem; margin-bottom: 20px; background: #1a1a1a; padding: 10px; border-radius: 10px; display: inline-block; border: 2px solid #f2c94c; }
+        .input-section { background: #222; padding: 15px; border-radius: 10px; max-width: 400px; margin: 0 auto 15px; border: 1px solid #444; }
+        .input-title { color: #f2c94c; font-weight: bold; margin-bottom: 10px; font-size: 0.9rem; }
+        #numberInput { width: 90%; padding: 12px; border-radius: 5px; border: 1px solid #f2c94c; background: #000; color: #fff; font-size: 16px; text-align: center; margin-bottom: 10px; }
+        .btn-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 420px; margin: 0 auto; }
+        button { border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.2s; position: relative; }
+        .btn-apply { width: 95%; height: 45px; background-color: #f2c94c; color: black; margin-bottom: 5px; }
+        .btn-main { width: 100%; height: 55px; background-color: #d4a017; color: black; margin-bottom: 5px; }
+        .btn-sub { width: 48%; height: 50px; background-color: #262626; color: white; border: 1px solid #333; }
+        #console-container { width: 100%; max-width: 420px; margin: 15px auto; background-color: #1a1a1a; border-radius: 12px; border: 2px solid #333; overflow: hidden; }
+        #console { width: 100%; height: 250px; padding: 15px; text-align: left; overflow-y: auto; color: #f2c94c; box-sizing: border-box; font-size: 16px; line-height: 1.5; white-space: pre-wrap; }
+        .timer-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; border-radius: 8px; color: #ff4d4d; }
     </style>
 </head>
 <body>
+    <h1>신의 손</h1>
+    <div class="target-box">🎯 제 1206회차 전략 시스템</div>
 
-<div class="container">
-    <h1>🏆 5조 로직 VIP 연구소</h1>
-    <p class="sub-text">93대 데이터 전체 다이어트 및 가중치 적용</p>
-
-    <div id="log" class="log-box">대기 중... 사장님 명령을 기다립니다.</div>
-    
-    <button class="gold-btn" onclick="runVIPLogic(10)">🚀 93대 상기 데이터 분석 (10개 압축)</button>
-    <button class="gold-btn" style="filter:grayscale(0.6);" onclick="runVIPLogic(12)">💎 93대 상기 데이터 분석 (12개 압축)</button>
-
-    <div id="result-area"></div>
-
-    <div style="margin-top: 30px; padding: 25px; border: 2px solid #D4AF37; background: rgba(212,175,55,0.05); border-radius: 20px; text-align: center;">
-        <p style="font-size: 18px; color: #D4AF37; font-weight: bold; margin-bottom: 15px;">🧧 정성이 담긴 복채함 🧧</p>
-        
-        <div style="background: rgba(0,0,0,0.6); padding: 20px; border-radius: 15px; border: 1px dashed #D4AF37;">
-            <p style="font-size: 13px; color: #aaa; margin-bottom: 12px;">당첨 기운을 나누는 후원 계좌</p>
-            
-            <p style="font-size: 18px; color: #fff; font-weight: bold; margin: 5px 0;">[은행이름]</p>
-            <p style="font-size: 22px; color: #D4AF37; font-weight: bold; margin: 8px 0; letter-spacing: 1px;">[계좌번호]</p>
-            
-            <p style="font-size: 14px; color: #FFEB00; margin-top: 10px; font-weight: bold;">(예금주: VIP연구소)</p>
-        </div>
-        
-        <p style="font-size: 11px; color: #666; margin-top: 15px;">※ 송금 시 확인되는 예금주가 다르더라도<br>연구소 전용 계좌가 맞으니 안심하고 보내주세요.</p>
+    <div class="input-section">
+        <div class="input-title">📍 분석할 18수를 입력하세요</div>
+        <input type="text" id="numberInput" placeholder="예: 1, 4, 16, 23, 31, 41..." value="">
+        <button class="btn-apply" onclick="saveNumbers()">✅ 18수 적용하기</button>
     </div>
-</div>
+    
+    <div class="btn-container">
+        <button class="btn-main" id="btn5" onclick="process('5')">5조합 생성 (AC 9-10)<div id="timer5" class="timer-overlay"></div></button>
+        <button class="btn-main" id="btn10" onclick="process('10')">10조합 생성 (패턴 분석)<div id="timer10" class="timer-overlay"></div></button>
+        <button class="btn-sub" onclick="location.reload()">새로고침</button>
+        <button class="btn-sub" onclick="clearData()">데이터 초기화</button>
+    </div>
 
-<script>
-    /* [93대 전체 데이터 직접 상기 및 분석 로직] */
-    const DATA_93_HISTORY = [
-        [1205, 1, 4, 16, 23, 31, 41], [1204, 8, 16, 28, 30, 31, 44], 
-        [1203, 3, 6, 18, 29, 35, 39], [1202, 5, 12, 21, 33, 37, 40]
-    ];
+    <div id="console-container"><div id="console">▶ 사장님, 18수 입력 후 적용을 눌러주세요.</div></div>
 
-    function runVIPLogic(size) {
-        const log = document.getElementById('log');
-        const area = document.getElementById('result-area');
-        log.innerHTML = "> 93대 데이터 정밀 분석 시작...\n";
-        area.innerHTML = "";
+    <script>
+        var WAIT_TIME = 60000;
+        var userPool = [];
+        var storageData = JSON.parse(localStorage.getItem('kingStorageTime')) || { '5': [], '10': [] };
+        
+        // 데이터 원본 로드 (지침 준수)
+        var data = [[1205,1,4,16,23,31,41],[1204,8,16,28,30,31,44],[1203,3,6,18,29,35,39],[1202,5,12,21,33,37,40],[1201,7,9,24,27,35,36],[1200,1,2,4,16,20,32],[1199,16,24,25,30,31,32],[1198,26,30,33,38,39,41],[1197,1,5,7,26,28,43],[1196,8,12,15,29,40,45],[1195,3,15,27,33,34,36],[1194,3,13,15,24,33,37],[1193,6,9,16,19,24,28],[1192,10,16,23,36,39,40],[1191,1,4,11,12,20,41],[1190,7,9,19,23,26,45],[1189,9,19,29,35,37,38],[1188,3,4,12,19,22,27],[1187,5,13,26,29,37,40],[1186,2,8,13,16,23,28],[1185,6,17,22,28,29,32],[1184,14,16,23,25,31,37],[1183,4,15,17,23,27,36],[1182,1,13,21,25,28,31],[1181,8,10,14,20,33,41],[1180,6,12,18,37,40,41],[1179,3,16,18,24,40,44],[1178,5,6,11,27,43,44],[1177,3,7,15,16,19,43],[1176,7,9,11,21,30,35],[1175,3,4,6,8,32,42],[1174,8,11,14,17,36,39],[1173,1,5,18,20,30,35],[1172,7,9,24,40,42,44],[1171,3,6,7,11,12,17],[1170,3,13,28,34,38,42],[1169,5,12,24,26,39,42],[1168,9,21,24,30,33,37],[1167,8,23,31,35,39,40],[1166,14,23,25,27,29,42],[1165,6,7,27,29,38,45],[1164,17,18,23,25,38,39],[1163,2,13,15,16,33,43],[1162,20,21,22,25,28,29],[1161,2,12,20,24,34,42],[1160,7,13,18,36,39,45],[1159,3,9,27,28,38,39],[1158,21,25,27,32,37,38],[1157,5,7,12,20,25,26],[1156,30,31,34,39,41,45],[1155,10,16,19,27,37,38],[1154,4,8,22,26,32,38],[1153,1,9,10,13,35,44],[1152,30,31,32,35,36,37],[1151,2,3,9,15,27,29],[1150,8,9,18,35,39,45],[1149,8,15,19,21,32,36],[1148,3,6,13,15,16,22],[1147,7,11,24,26,27,37],[1146,6,11,17,19,40,43],[1145,2,11,31,33,37,44],[1144,3,4,12,15,26,34],[1143,10,16,17,27,28,36],[1142,2,8,28,30,37,41],[1141,7,11,12,21,26,35],[1140,7,10,22,29,31,38],[1139,5,12,15,30,37,40],[1138,14,16,19,20,29,34],[1137,4,9,12,15,33,45],[1136,21,33,35,38,42,44],[1135,1,6,13,19,21,33],[1134,3,7,9,13,19,24],[1133,13,14,20,28,29,34],[1132,6,7,19,28,34,41],[1131,1,2,6,14,27,38],[1130,15,19,21,25,27,28],[1129,5,10,11,17,28,34],[1128,1,5,8,16,28,33],[1127,10,15,24,30,31,37],[1126,4,5,9,11,37,40],[1125,6,14,25,33,40,44],[1124,3,8,17,30,33,34],[1123,13,19,21,24,34,35],[1122,3,6,21,30,34,35]];
 
-        setTimeout(() => {
-            // 원본 데이터 로드 및 로직 실행
-            let pool = [];
-            DATA_93_HISTORY.forEach(row => pool.push(...row.slice(1)));
-            
-            // 최소 10개 압축 번호 추출
-            let compressed = [];
-            while(compressed.length < size) {
-                let r = Math.floor(Math.random() * 45) + 1;
-                if(!compressed.includes(r)) compressed.push(r);
+        function getAC(arr) {
+            let d = new Set();
+            for (let i = 0; i < 6; i++) {
+                for (let j = i + 1; j < 6; j++) d.add(Math.abs(arr[i] - arr[j]));
             }
+            return d.size - 5;
+        }
 
-            // 회차 정보를 포함한 5조합 생성
-            for(let i=0; i<5; i++) {
-                let combo = [...compressed].sort(() => Math.random() - 0.5).slice(0, 6).sort((a,b)=>a-b);
-                let round = DATA_93_HISTORY[i] ? DATA_93_HISTORY[i][0] : "VIP";
-                
-                let rowHtml = `<div class="result-row"><span style="color:#D4AF37; font-weight:bold; font-size:14px;">${round}회</span><div>`;
-                combo.forEach(n => {
-                    let c = n<=10?"#fbc02d":n<=20?"#1976d2":n<=30?"#e53935":n<=40?"#757575":"#43a047";
-                    rowHtml += `<div class="ball" style="background:${c}">${n}</div>`;
-                });
-                rowHtml += `</div></div>`;
-                area.innerHTML += rowHtml;
+        function saveNumbers() {
+            var val = document.getElementById('numberInput').value;
+            var nums = val.split(/[,.\s]+/).map(n => parseInt(n.trim())).filter(n => n >= 1 && n <= 45);
+            var unique = [...new Set(nums)];
+            if (unique.length !== 18) {
+                alert("사장님, 18개의 숫자를 중복 없이 입력해 주세요! (현재: " + unique.length + "개)");
+                return;
             }
-            log.innerHTML += `> 분석 완료! 5조 앞부분 로직으로 생성되었습니다.`;
-        }, 800);
-    }
-</script>
+            userPool = unique.sort((a,b) => a-b);
+            document.getElementById('console').innerHTML = "▶ 18수 로드 성공!\n추출 준비가 완료되었습니다.";
+        }
+
+        function process(mode) {
+            var box = document.getElementById('console');
+            if (userPool.length !== 18) { alert("먼저 18수 숫자를 입력하고 적용해 주세요!"); return; }
+
+            box.innerHTML = "▶ [생성 엔진 가동 중...]\n";
+            var lastWin = data[0].slice(1);
+            var count = (mode === '5') ? 5 : 10;
+            var gen = 0, safety = 0;
+
+            while(gen < count && safety < 10000) {
+                safety++;
+                var res = [], tmp = [...userPool];
+                for(var p=0; p<6; p++) {
+                    var idx = Math.floor(Math.random() * tmp.length);
+                    res.push(tmp.splice(idx, 1)[0]);
+                }
+                res.sort((a,b) => a-b);
+
+                // [지침] 이월수 0개~2개 제한
+                var carryOver = res.filter(n => lastWin.includes(n)).length;
+                if (carryOver > 2) continue;
+
+                // [지침] 5조 앞부분 로직 전용 AC 필터
+                var currentAC = getAC(res);
+                if (mode === '5') {
+                    if (currentAC < 9 || currentAC > 10) continue;
+                }
+
+                gen++;
+                var s = res.map(n => n < 10 ? "0" + n : n).join("  ");
+                box.innerHTML += "(" + gen + ") " + s + " (AC:" + currentAC + ")\n";
+            }
+            box.scrollTop = box.scrollHeight;
+            startTimer(mode);
+        }
+
+        function startTimer(m) {
+            var b = document.getElementById('btn'+m), o = document.getElementById('timer'+m);
+            b.disabled = true; o.style.display = 'flex';
+            var e = new Date().getTime() + WAIT_TIME;
+            var t = setInterval(function() {
+                var r = e - new Date().getTime();
+                if(r <= 0) { clearInterval(t); b.disabled = false; o.style.display = 'none'; }
+                else { o.innerText = Math.ceil(r/1000) + "초"; }
+            }, 100);
+        }
+
+        function clearData() { if(confirm("초기화할까요?")) location.reload(); }
+    </script>
 </body>
 </html>
